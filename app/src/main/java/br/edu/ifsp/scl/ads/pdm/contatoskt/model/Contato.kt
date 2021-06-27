@@ -1,6 +1,7 @@
 package br.edu.ifsp.scl.ads.pdm.contatoskt.model
 
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Contato(
@@ -10,5 +11,4 @@ data class Contato(
     var telefoneComercial: Boolean = false,
     var telefoneCelular: String = "",
     var site: String = ""
-) :Parcelable {
-}
+): Parcelable

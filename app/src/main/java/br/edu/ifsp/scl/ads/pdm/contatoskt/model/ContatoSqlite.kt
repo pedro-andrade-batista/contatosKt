@@ -21,8 +21,7 @@ import br.edu.ifsp.scl.ads.pdm.contatoskt.model.ContatoSqlite.Constantes.VERDADE
 import java.sql.SQLException
 
 class ContatoSqlite(contexto: Context): ContatoDao {
-
-    object Constantes {
+    object Constantes { // instancia unica de uma classe, usado criar valores constantes
         val LISTA_CONTATOS_DATABASE = "listaContatos"
         val CONTATO_TABLE = "contato"
         val NOME_COLUMN = "nome"
@@ -44,8 +43,8 @@ class ContatoSqlite(contexto: Context): ContatoDao {
         val VERDADEIRO_INTEIRO = 1
     }
 
-
     val listaContatosDb: SQLiteDatabase
+
     init {
         listaContatosDb = contexto.openOrCreateDatabase(
             LISTA_CONTATOS_DATABASE,
@@ -76,13 +75,12 @@ class ContatoSqlite(contexto: Context): ContatoDao {
     }
 
     override fun createContato(contato: Contato) {
-        // insert
-        listaContatosDb.insert(CONTATO_TABLE, null,
+        listaContatosDb.insert(CONTATO_TABLE,
+            null,
             contentValuesFromContato(contato, true))
     }
 
     override fun readContato(nome: String): Contato {
-        // usando funcao query
         val contatoCursor = listaContatosDb.query(
             true,
             CONTATO_TABLE,
@@ -117,7 +115,6 @@ class ContatoSqlite(contexto: Context): ContatoDao {
     override fun readContatos(): MutableList<Contato> {
         val contatosList: MutableList<Contato> = mutableListOf()
 
-        // usando raw query
         val consultaQuery = "SELECT * FROM ${CONTATO_TABLE}"
         val contatosCursor = listaContatosDb.rawQuery(consultaQuery, null)
         while (contatosCursor.moveToNext()) {
@@ -131,7 +128,7 @@ class ContatoSqlite(contexto: Context): ContatoDao {
             CONTATO_TABLE,
             contentValuesFromContato(contato, false),
             "${NOME_COLUMN} = ?",
-            arrayOf(contato.nome) // substitui ?
+            arrayOf(contato.nome)
         )
     }
 

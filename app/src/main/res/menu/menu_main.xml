@@ -8,4 +8,9 @@
         android:icon="@drawable/ic_novo_contato"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/sairMi"
+        android:title="@string/sair"
+        android:icon="@drawable/ic_sair"
+        app:showAsAction="ifRoom" />
 </menu>

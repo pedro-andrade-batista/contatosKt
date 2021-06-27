@@ -1,14 +1,14 @@
 package br.edu.ifsp.scl.ads.pdm.contatoskt.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import br.edu.ifsp.scl.ads.pdm.contatoskt.AutenticacaoFirebase
 import br.edu.ifsp.scl.ads.pdm.contatoskt.databinding.ActivityContatoBinding
 import br.edu.ifsp.scl.ads.pdm.contatoskt.model.Contato
 
-class ContatoActivity : AppCompatActivity() {
-
+class ContatoActivity : AppCompatActivity(){
     private lateinit var activityContatoBinding: ActivityContatoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class ContatoActivity : AppCompatActivity() {
         setContentView(activityContatoBinding.root)
     }
 
-    fun onClickButton(view: View) {
+    fun onClick(view: View){
         val contato: Contato
         with(activityContatoBinding) {
             contato = Contato(
@@ -35,6 +35,13 @@ class ContatoActivity : AppCompatActivity() {
             val retornoIntent = Intent()
             retornoIntent.putExtra(Intent.EXTRA_USER, contato)
             setResult(RESULT_OK, retornoIntent)
+            finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(AutenticacaoFirebase.firebaseAuth.currentUser == null){
             finish()
         }
     }
